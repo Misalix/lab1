@@ -7,17 +7,19 @@ public abstract class Car implements Movable {
     private double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     private String modelName; // The car model name
+    private int size;
 
     // How the car moves in x and y-coordinates
     private double x;
     private double y;
 
 
-    public Car(int nrDoors, double enginePower, Color color, String modelName) {
+    public Car(int nrDoors, double enginePower, Color color, String modelName, int size) {
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
         this.modelName = modelName;
+        this.size = size;
         stopEngine();
     }
 
@@ -98,6 +100,13 @@ public abstract class Car implements Movable {
         return y;
     }
 
+    public int getSize() { return size; }
+
+    protected void setPosition (double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
 
     // Methods that were taken from the subclasses because they were identical
 
@@ -139,7 +148,9 @@ public abstract class Car implements Movable {
         currentSpeed = newSpeed;
     }
 
-    protected abstract double speedFactor();
+    protected double speedFactor() {
+        return getEnginePower() * 0.01;
+    }
 
     public void incrementSpeed(double amount) {
         double newSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
