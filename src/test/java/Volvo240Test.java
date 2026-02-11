@@ -98,4 +98,15 @@ class Volvo240Test {
         assertEquals(yBefore1 - car.getCurrentSpeed(), car.getY(), 1e-9);
     }
 
+    @Test
+    void testWorkshop(){
+        Workshop <Volvo240> volvoGarage = new Workshop<>(2);
+        volvoGarage.load(new Volvo240());
+        Volvo240 v = volvoGarage.unload(0);
+
+       Workshop <Car> allCars = new Workshop<>(4);
+       allCars.load(new Volvo240());
+       allCars.load(new Saab95());
+    }
+
 }

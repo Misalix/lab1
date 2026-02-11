@@ -101,4 +101,11 @@ class Saab95Test {
         assertEquals(yBefore1 - saab.getCurrentSpeed(), saab.getY(), 1e-9);
     }
 
+    @Test
+    void testSaabWorkshop(){
+        Workshop <Saab95> saabGarage = new Workshop<>(10);
+        saabGarage.load(new Saab95());
+        Saab95 saab = saabGarage.unload(0);
+    }
+
 }
