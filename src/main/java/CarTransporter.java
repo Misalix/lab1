@@ -1,18 +1,18 @@
 import  java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class CarTransporter extends Car {
+public class CarTransporter extends Truck {
 
     private boolean platformRaised;
     private  int maxCars;
-    private  List<Car> loadedCars;
+    private Deque<Car> loadedCars;
 
     public CarTransporter() {
         super(2, 70, Color.gray, "lab2.CarTransporter", 5);
         platformRaised = true;
         maxCars = 10;
-        loadedCars = new ArrayList<>();
+        loadedCars = new ArrayDeque<Car>();
     }
 
     public  void setPlatformRaised() {
@@ -56,8 +56,6 @@ public class CarTransporter extends Car {
 
         if (car == null)
             throw new IllegalStateException("Car can't be null");
-        if (car instanceof CarTransporter)
-            throw new IllegalStateException("Can't load another car transporter");
         if (getCurrentSpeed() != 0)
             throw  new IllegalStateException("Car transporter has to be stationary to load a car");
         if (loadedCars.size() >= maxCars)
@@ -71,7 +69,7 @@ public class CarTransporter extends Car {
 
         if (distance > 2.0)
             throw new IllegalStateException("Car is too far away");
-        loadedCars.add(car);
+        loadedCars.push(car);
         car.setPosition(this.getX(), this.getY());
 
     }
@@ -83,9 +81,8 @@ public class CarTransporter extends Car {
             throw new IllegalStateException("Car transporter has to be stationary to unload a car");
         if (loadedCars.isEmpty())
             throw new IllegalStateException("There are no cars in the transport car");
-        Car car = loadedCars.removeLast();
+        Car car = loadedCars.pop();
         car.setPosition(this.getX(), this.getY() - 1);
-
         return car;
     }
 }

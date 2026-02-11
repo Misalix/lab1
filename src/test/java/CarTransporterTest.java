@@ -44,7 +44,9 @@ public class CarTransporterTest {
     void carTransport_loadingFailIfTooBig() {
         CarTransporter transporter = new CarTransporter();
         transporter.setPlatformDown();
-        assertThrows(IllegalStateException.class, () -> transporter.loadCar(new Scania()));
+        Car volvo240 = new Volvo240();
+        volvo240.setSize(6);
+        assertThrows(IllegalStateException.class, () -> transporter.loadCar(volvo240));
     }
 
     @Test
@@ -97,18 +99,7 @@ public class CarTransporterTest {
         assertSame(a, secondOut);
     }
 
-    @Test
-    void carTransport_cannotLoadAnotherTransporter(){
-        CarTransporter transporter = new CarTransporter();
-        CarTransporter anotherTransporter = new CarTransporter();
 
-        transporter.setPosition(0,0);
-        anotherTransporter.setPosition(0,0);
-
-        transporter.setPlatformDown();
-
-        assertThrows(IllegalStateException.class,() -> transporter.loadCar(anotherTransporter) );
-    }
     @Test
     void carTransport_unloadedCarEndsUpNearTransporter(){
         CarTransporter transporter = new CarTransporter();
